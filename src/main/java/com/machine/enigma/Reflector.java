@@ -13,7 +13,7 @@ class Reflector {
                 .forEach(i -> reflector[i] = sequence.charAt(i));
     }
 
-    char characterIndexValue(char c) {
+    char reflect(char c) {
         return reflector[c - A];
     }
 
