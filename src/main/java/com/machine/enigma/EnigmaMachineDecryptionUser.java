@@ -4,9 +4,34 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-class FindRotorSettings {
+class EnigmaMachineDecryptionUser {
 
-    List<Integer> get(EnigmaMachine enigmaMachine, String fileName) throws IOException {
+    public static void main(String[] args) throws IOException {
+        Rotor r1 = new Rotor("QWERTYUIOPLKJHGFDSAZXCVBNM");
+        Rotor r2 = new Rotor("ZAQWSXCDERFVBGTYHNMJUIKLOP");
+        Rotor r3 = new Rotor("PLOKMIJNUHBYGVTFCRDXESZWAQ");
+        Reflector rf = new Reflector("NPKMSLZTWQCFDAVBJYEHXOIURG");
+        EnigmaMachine enigmaMachine = new EnigmaMachine(r1, r2, r3, rf);
+
+        final String fileName = "src/main/resources/encrypted.txt";
+
+        EnigmaMachineDecryptionUser user = new EnigmaMachineDecryptionUser();
+
+        final List<Integer> rotorSettings = user.findRotorSettings(enigmaMachine, fileName, 2);
+        System.out.println(user.decryptFile(enigmaMachine, rotorSettings, fileName));
+    }
+
+    String decryptFile(EnigmaMachine enigmaMachine, List<Integer> rotorSettings, String fileName)
+            throws IOException {
+        enigmaMachine.setRotors(rotorSettings.get(0), rotorSettings.get(1), rotorSettings.get(2));
+        ReadFile file = new ReadFile(fileName);
+        String encryptedFile = file.readFile();
+        return enigmaMachine.encodeLine(encryptedFile);
+    }
+
+    List<Integer> findRotorSettings(EnigmaMachine enigmaMachine, String fileName)
+            throws IOException {
+
         ReadFile file = new ReadFile(fileName);
         English english = new English();
         String encryptedFile = file.readFile();
@@ -29,7 +54,9 @@ class FindRotorSettings {
         return new ArrayList<>();
     }
 
-    List<Integer> get(EnigmaMachine enigmaMachine, String fileName, int numberOfLinesToSample) throws IOException {
+    List<Integer> findRotorSettings(EnigmaMachine enigmaMachine, String fileName, int numberOfLinesToSample)
+            throws IOException {
+
         ReadFile file = new ReadFile(fileName);
         English english = new English();
         String encryptedFile = file.readFile(numberOfLinesToSample);
