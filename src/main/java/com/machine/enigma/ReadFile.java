@@ -14,10 +14,10 @@ class ReadFile {
         this.path = filePath;
     }
 
-    String readFile(int numberOfLines) throws IOException {
-        FileReader fileReader = new FileReader(path);
-        BufferedReader bufferReader = new BufferedReader(fileReader);
-        StringBuilder file = new StringBuilder();
+    String read(int numberOfLines) throws IOException {
+        final FileReader fileReader = new FileReader(path);
+        final BufferedReader bufferReader = new BufferedReader(fileReader);
+        final StringBuilder file = new StringBuilder();
         String characterData;
         int fileLine = 0;
 
@@ -31,7 +31,7 @@ class ReadFile {
         return file.toString();
     }
 
-    String readFile() throws IOException {
+    String read() throws IOException {
         return new String(Files.readAllBytes(Paths.get(path)));
     }
 
