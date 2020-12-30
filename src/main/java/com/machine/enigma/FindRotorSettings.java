@@ -1,43 +1,55 @@
 package com.machine.enigma;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 class FindRotorSettings {
 
-    public static void main(String[] args) {
-        Rotor r1 = new Rotor("QWERTYUIOPLKJHGFDSAZXCVBNM");
-        Rotor r2 = new Rotor("ZAQWSXCDERFVBGTYHNMJUIKLOP");
-        Rotor r3 = new Rotor("PLOKMIJNUHBYGVTFCRDXESZWAQ");
-        Reflector rf = new Reflector("NPKMSLZTWQCFDAVBJYEHXOIURG");
-        EnigmaMachine enigmaMachine = new EnigmaMachine(r1, r2, r3, rf);
+    List<Integer> get(EnigmaMachine enigmaMachine, String fileName) throws IOException {
+        ReadFile file = new ReadFile(fileName);
         English english = new English();
-        String fileName = "src/main/resources/encrypted.txt";
+        String encryptedFile = file.readFile();
 
-        try {
-            final int numberOfLinesToSample = 2;
+        for (int i = 0; i < Rotor.MAX; i++) {
+            for (int j = 0; j < Rotor.MAX; j++) {
+                for (int k = 0; k < Rotor.MAX; k++) {
+                    enigmaMachine.setRotors(i, j, k);
+                    String decrypt = enigmaMachine.encodeLine(encryptedFile);
+                    english.countAllLetters(decrypt);
 
-            ReadFile file = new ReadFile(fileName);
-            String encryptedFile = file.readFile(numberOfLinesToSample);
-
-            for (int i = 0; i < Rotor.MAX; i++) {
-                for (int j = 0; j < Rotor.MAX; j++) {
-                    for (int k = 0; k < Rotor.MAX; k++) {
-                        enigmaMachine.setRotors(i, j, k);
-                        String result = enigmaMachine.encodeLine(encryptedFile);
-                        english.countAllLetters(result);
-                        final double multipler = 1.6;
-                        final int errorsAllowedInDecryption = 15;
-
-                        if (english.getErrorCount(multipler) <= errorsAllowedInDecryption) {
-                            System.out.printf("Rotor 1: %d\nRotor 2: %d\nRotor 3: %d\n", i, j, k);
-                            System.out.println(result);
-                        }
+                    final double multiplier = 1.6;
+                    final int errorsAllowedInDecryption = 15;
+                    if (english.getErrorCount(multiplier) <= errorsAllowedInDecryption) {
+                        return List.of(i, j, k);
                     }
                 }
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
         }
+        return new ArrayList<>();
+    }
+
+    List<Integer> get(EnigmaMachine enigmaMachine, String fileName, int numberOfLinesToSample) throws IOException {
+        ReadFile file = new ReadFile(fileName);
+        English english = new English();
+        String encryptedFile = file.readFile(numberOfLinesToSample);
+
+        for (int i = 0; i < Rotor.MAX; i++) {
+            for (int j = 0; j < Rotor.MAX; j++) {
+                for (int k = 0; k < Rotor.MAX; k++) {
+                    enigmaMachine.setRotors(i, j, k);
+                    String decrypt = enigmaMachine.encodeLine(encryptedFile);
+                    english.countAllLetters(decrypt);
+
+                    final double multiplier = 1.6;
+                    final int errorsAllowedInDecryption = 15;
+                    if (english.getErrorCount(multiplier) <= errorsAllowedInDecryption) {
+                        return List.of(i, j, k);
+                    }
+                }
+            }
+        }
+        return new ArrayList<>();
     }
 
 }
