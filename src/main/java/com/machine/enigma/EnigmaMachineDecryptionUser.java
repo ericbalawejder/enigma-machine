@@ -7,18 +7,23 @@ import java.util.List;
 class EnigmaMachineDecryptionUser {
 
     public static void main(String[] args) throws IOException {
-        Rotor r1 = new Rotor("QWERTYUIOPLKJHGFDSAZXCVBNM");
-        Rotor r2 = new Rotor("ZAQWSXCDERFVBGTYHNMJUIKLOP");
-        Rotor r3 = new Rotor("PLOKMIJNUHBYGVTFCRDXESZWAQ");
-        Reflector rf = new Reflector("NPKMSLZTWQCFDAVBJYEHXOIURG");
-        EnigmaMachine enigmaMachine = new EnigmaMachine(r1, r2, r3, rf);
+        final Rotor r1 = new Rotor("QWERTYUIOPLKJHGFDSAZXCVBNM");
+        final Rotor r2 = new Rotor("ZAQWSXCDERFVBGTYHNMJUIKLOP");
+        final Rotor r3 = new Rotor("PLOKMIJNUHBYGVTFCRDXESZWAQ");
+        final Reflector rf = new Reflector("NPKMSLZTWQCFDAVBJYEHXOIURG");
+        final EnigmaMachine enigmaMachine = new EnigmaMachine(r1, r2, r3, rf);
 
         final String fileName = "src/main/resources/encrypted.txt";
 
-        EnigmaMachineDecryptionUser user = new EnigmaMachineDecryptionUser();
+        final EnigmaMachineDecryptionUser user = new EnigmaMachineDecryptionUser();
 
-        final List<Integer> rotorSettings = user.findRotorSettings(enigmaMachine, fileName, 2);
-        System.out.println(user.decryptFile(enigmaMachine, rotorSettings, fileName));
+        final List<Integer> rotorSettings =
+                user.findRotorSettings(enigmaMachine, fileName, 2);
+
+        final String unencryptedFile = user.decryptFile(enigmaMachine, rotorSettings, fileName);
+
+        System.out.println("\nRotor settings: " + rotorSettings + "\n");
+        System.out.println(unencryptedFile);
     }
 
     String decryptFile(EnigmaMachine enigmaMachine, List<Integer> rotorSettings, String fileName)
