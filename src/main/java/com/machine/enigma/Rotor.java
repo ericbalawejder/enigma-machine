@@ -15,7 +15,7 @@ class Rotor {
         }
     }
 
-    boolean inc() {
+    boolean increment() {
         position++;
         if (position == MAX) {
             position = 0;
@@ -40,6 +40,10 @@ class Rotor {
 
     void setRotorPosition(int n) {
         this.position = n % MAX;
+    }
+
+    int getRotorPosition() {
+        return this.position;
     }
 
 }

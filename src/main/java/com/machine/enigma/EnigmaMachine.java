@@ -28,17 +28,17 @@ class EnigmaMachine {
     }
 
     String encodeLine(String sequence) {
-        StringBuilder stringResult = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = 0; i < sequence.length(); i++) {
             if (Character.isAlphabetic(sequence.charAt(i)) && Character.isUpperCase(sequence.charAt((i)))) {
-                stringResult.append(encodeCharacter(sequence.charAt(i)));
+                stringBuilder.append(encodeCharacter(sequence.charAt(i)));
                 incrementRotors();
             } else {
-                stringResult.append(sequence.charAt(i));
+                stringBuilder.append(sequence.charAt(i));
             }
         }
-        return stringResult.toString();
+        return stringBuilder.toString();
     }
 
     void setRotors(int a, int b, int c) {
@@ -48,11 +48,26 @@ class EnigmaMachine {
     }
 
     void incrementRotors() {
-        if (r1.inc()) {
-            if (r2.inc()) {
-                r3.inc();
+        if (r1.increment()) {
+            if (r2.increment()) {
+                r3.increment();
             }
         }
     }
 
+    public Rotor getR1() {
+        return r1;
+    }
+
+    public Rotor getR2() {
+        return r2;
+    }
+
+    public Rotor getR3() {
+        return r3;
+    }
+
+    public Reflector getReflector() {
+        return reflector;
+    }
 }
