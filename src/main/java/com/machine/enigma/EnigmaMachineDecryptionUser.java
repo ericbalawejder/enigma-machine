@@ -24,23 +24,22 @@ class EnigmaMachineDecryptionUser {
     String decryptFile(EnigmaMachine enigmaMachine, List<Integer> rotorSettings, String fileName)
             throws IOException {
         enigmaMachine.setRotors(rotorSettings.get(0), rotorSettings.get(1), rotorSettings.get(2));
-        ReadFile file = new ReadFile(fileName);
-        String encryptedFile = file.readFile();
-        return enigmaMachine.encodeLine(encryptedFile);
+        final ReadFile file = new ReadFile(fileName);
+        return enigmaMachine.encodeLine(file.read());
     }
 
     List<Integer> findRotorSettings(EnigmaMachine enigmaMachine, String fileName)
             throws IOException {
 
-        ReadFile file = new ReadFile(fileName);
-        English english = new English();
-        String encryptedFile = file.readFile();
+        final ReadFile file = new ReadFile(fileName);
+        final English english = new English();
+        final String encryptedFile = file.read();
 
         for (int i = 0; i < Rotor.MAX; i++) {
             for (int j = 0; j < Rotor.MAX; j++) {
                 for (int k = 0; k < Rotor.MAX; k++) {
                     enigmaMachine.setRotors(i, j, k);
-                    String decrypt = enigmaMachine.encodeLine(encryptedFile);
+                    final String decrypt = enigmaMachine.encodeLine(encryptedFile);
                     english.countAllLetters(decrypt);
 
                     final double multiplier = 1.6;
@@ -57,15 +56,15 @@ class EnigmaMachineDecryptionUser {
     List<Integer> findRotorSettings(EnigmaMachine enigmaMachine, String fileName, int numberOfLinesToSample)
             throws IOException {
 
-        ReadFile file = new ReadFile(fileName);
-        English english = new English();
-        String encryptedFile = file.readFile(numberOfLinesToSample);
+        final ReadFile file = new ReadFile(fileName);
+        final English english = new English();
+        final String encryptedFile = file.read(numberOfLinesToSample);
 
         for (int i = 0; i < Rotor.MAX; i++) {
             for (int j = 0; j < Rotor.MAX; j++) {
                 for (int k = 0; k < Rotor.MAX; k++) {
                     enigmaMachine.setRotors(i, j, k);
-                    String decrypt = enigmaMachine.encodeLine(encryptedFile);
+                    final String decrypt = enigmaMachine.encodeLine(encryptedFile);
                     english.countAllLetters(decrypt);
 
                     final double multiplier = 1.6;
