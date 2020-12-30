@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class EnigmaMachineTest {
 
@@ -107,6 +108,15 @@ class EnigmaMachineTest {
         assertEquals(enigmaMachine.getR1().getRotorPosition(), 2);
         assertEquals(enigmaMachine.getR2().getRotorPosition(), 24);
         assertEquals(enigmaMachine.getR3().getRotorPosition(), 13);
+    }
+
+    @Test
+    void testReflector() {
+        char[] expected = "NPKMSLZTWQCFDAVBJYEHXOIURG".toCharArray();
+
+        char[] actual = enigmaMachine.getReflector().getLeftToRightWiring();
+
+        assertArrayEquals(expected, actual);
     }
 
 }

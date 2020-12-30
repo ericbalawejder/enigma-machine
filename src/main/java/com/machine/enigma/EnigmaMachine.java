@@ -9,15 +9,6 @@ class EnigmaMachine {
     private final Rotor r3;
     private final Reflector reflector;
 
-    public static void main(String[] args) {
-        Rotor r1 = new Rotor("QWERTYUIOPLKJHGFDSAZXCVBNM");
-        Rotor r2 = new Rotor("ZAQWSXCDERFVBGTYHNMJUIKLOP");
-        Rotor r3 = new Rotor("PLOKMIJNUHBYGVTFCRDXESZWAQ");
-        Reflector rf = new Reflector("NPKMSLZTWQCFDAVBJYEHXOIURG");
-        EnigmaMachine enigmaMachine = new EnigmaMachine(r1, r2, r3, rf);
-        System.out.println(enigmaMachine.encodeCharacter('A'));
-    }
-
     EnigmaMachine(Rotor r1, Rotor r2, Rotor r3, Reflector rf) {
         this.r1 = r1;
         this.r2 = r2;
