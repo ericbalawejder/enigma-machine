@@ -29,13 +29,13 @@ class Rotor {
     }
 
     char encodeRightToLeft(char c) {
-        c = rightToLeftWiring[c - A];
-        c -= position;
+        char character = rightToLeftWiring[c - A];
+        character -= position;
 
-        if (c < A) {
-            c += MAX;
+        if (character < A) {
+            character += MAX;
         }
-        return c;
+        return character;
     }
 
     void setRotorPosition(int n) {
