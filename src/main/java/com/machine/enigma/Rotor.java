@@ -1,5 +1,7 @@
 package com.machine.enigma;
 
+import java.util.Arrays;
+
 class Rotor {
 
     static final int MAX = 26;
@@ -46,4 +48,11 @@ class Rotor {
         return this.position;
     }
 
+    char[] getLeftToRightWiring() {
+        return Arrays.copyOf(leftToRightWiring, leftToRightWiring.length);
+    }
+
+    char[] getRightToLeftWiring() {
+        return Arrays.copyOf(rightToLeftWiring, rightToLeftWiring.length);
+    }
 }
