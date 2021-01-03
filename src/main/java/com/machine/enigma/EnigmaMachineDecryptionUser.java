@@ -1,6 +1,8 @@
 package com.machine.enigma;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,9 @@ class EnigmaMachineDecryptionUser {
 
         final String unencryptedFile = user.decryptFile(enigmaMachine, rotorSettings, fileName);
 
-        System.out.println("\nRotor settings: " + rotorSettings + "\n");
+        System.setOut(new PrintStream(new FileOutputStream("src/main/resources/unencrypted.txt")));
+
+        //System.out.println("\nRotor settings: " + rotorSettings + "\n");
         System.out.println(unencryptedFile);
     }
 
