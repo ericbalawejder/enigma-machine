@@ -47,4 +47,12 @@ class English {
         return errorCount;
     }
 
+    public double getTotalNumberOfLetters() {
+        return totalNumberOfLetters;
+    }
+
+    public int[] getAlphabetLetterCount() {
+        return Arrays.copyOf(alphabetLetterCount, alphabetLetterCount.length);
+    }
+
 }
