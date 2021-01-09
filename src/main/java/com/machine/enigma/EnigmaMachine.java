@@ -1,5 +1,11 @@
 package com.machine.enigma;
 
+import java.security.SecureRandom;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 class EnigmaMachine {
@@ -8,6 +14,13 @@ class EnigmaMachine {
     private final Rotor r2;
     private final Rotor r3;
     private final Reflector reflector;
+
+    EnigmaMachine() {
+        this.r1 = new Rotor(randomLetters());
+        this.r2 = new Rotor(randomLetters());
+        this.r3 = new Rotor(randomLetters());
+        this.reflector = new Reflector(randomLetters());
+    }
 
     EnigmaMachine(Rotor r1, Rotor r2, Rotor r3, Reflector rf) {
         this.r1 = r1;
@@ -35,6 +48,12 @@ class EnigmaMachine {
         r1.setRotorPosition(a);
         r2.setRotorPosition(b);
         r3.setRotorPosition(c);
+    }
+
+    void setRotorsRandom() {
+        r1.setRotorPosition(randomNumbers());
+        r2.setRotorPosition(randomNumbers());
+        r3.setRotorPosition(randomNumbers());
     }
 
     void incrementRotors() {
@@ -72,6 +91,31 @@ class EnigmaMachine {
                 .map(r1::encodeRightToLeft)
                 .findFirst()
                 .get();
+    }
+
+    private String randomLetters() {
+        final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        final List<Character> sequence = alphabet.chars()
+                .mapToObj(c -> (char) c)
+                .collect(Collectors.toList());
+
+        Collections.shuffle(sequence, new SecureRandom());
+
+        return sequence.stream()
+                .map(String::valueOf)
+                .collect(Collector.of(
+                        StringBuilder::new,
+                        StringBuilder::append,
+                        StringBuilder::append,
+                        StringBuilder::toString));
+    }
+
+    private int randomNumbers() {
+        final Random random = new SecureRandom();
+        return random.ints(0, 26)
+                .limit(1)
+                .findFirst()
+                .orElseThrow();
     }
 
 }

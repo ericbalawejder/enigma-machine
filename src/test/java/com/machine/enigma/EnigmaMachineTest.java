@@ -7,6 +7,7 @@ import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EnigmaMachineTest {
 
@@ -48,6 +49,17 @@ class EnigmaMachineTest {
         assertEquals(enigmaMachine.getR1().getRotorPosition(), 17);
         assertEquals(enigmaMachine.getR2().getRotorPosition(), 4);
         assertEquals(enigmaMachine.getR3().getRotorPosition(), 9);
+    }
+
+    @Test
+    void testSetRotorsRandom() {
+        enigmaMachine.setRotorsRandom();
+        assertTrue(enigmaMachine.getR1().getRotorPosition() >= 0
+                && enigmaMachine.getR1().getRotorPosition() < 26);
+        assertTrue(enigmaMachine.getR2().getRotorPosition() >= 0
+                && enigmaMachine.getR2().getRotorPosition() < 26);
+        assertTrue(enigmaMachine.getR3().getRotorPosition() >= 0
+                && enigmaMachine.getR3().getRotorPosition() < 26);
     }
 
     @Test
