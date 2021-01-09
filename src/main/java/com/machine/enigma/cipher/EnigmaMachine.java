@@ -1,35 +1,40 @@
-package com.machine.enigma;
+package com.machine.enigma.cipher;
 
 import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
+import java.util.UUID;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-class EnigmaMachine {
+public class EnigmaMachine {
 
     private final Rotor r1;
     private final Rotor r2;
     private final Rotor r3;
     private final Reflector reflector;
+    private final UUID uuid;
 
-    EnigmaMachine() {
+    public EnigmaMachine() {
         this.r1 = new Rotor(randomLetters());
         this.r2 = new Rotor(randomLetters());
         this.r3 = new Rotor(randomLetters());
         this.reflector = new Reflector(randomLetters());
+        this.uuid = UUID.randomUUID();
     }
 
-    EnigmaMachine(Rotor r1, Rotor r2, Rotor r3, Reflector rf) {
+    public EnigmaMachine(Rotor r1, Rotor r2, Rotor r3, Reflector rf) {
         this.r1 = r1;
         this.r2 = r2;
         this.r3 = r3;
         this.reflector = rf;
+        this.uuid = UUID.randomUUID();
     }
 
-    String encodeLine(String sequence) {
+    public String encodeLine(String sequence) {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = 0; i < sequence.length(); i++) {
@@ -44,19 +49,19 @@ class EnigmaMachine {
         return stringBuilder.toString();
     }
 
-    void setRotors(int a, int b, int c) {
+    public void setRotors(int a, int b, int c) {
         r1.setRotorPosition(a);
         r2.setRotorPosition(b);
         r3.setRotorPosition(c);
     }
 
-    void setRotorsRandom() {
+    public void setRotorsRandom() {
         r1.setRotorPosition(randomNumbers());
         r2.setRotorPosition(randomNumbers());
         r3.setRotorPosition(randomNumbers());
     }
 
-    void incrementRotors() {
+    public void incrementRotors() {
         if (r1.increment()) {
             if (r2.increment()) {
                 r3.increment();
@@ -78,6 +83,10 @@ class EnigmaMachine {
 
     public Reflector getReflector() {
         return reflector;
+    }
+
+    public UUID getUuid() {
+        return uuid;
     }
 
     private char encodeCharacter(char c) {
@@ -116,6 +125,32 @@ class EnigmaMachine {
                 .limit(1)
                 .findFirst()
                 .orElseThrow();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EnigmaMachine that = (EnigmaMachine) o;
+        return r1.equals(that.r1) && r2.equals(that.r2) && r3.equals(that.r3)
+                && reflector.equals(that.reflector) && uuid.equals(that.uuid);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(r1, r2, r3, reflector, uuid);
+    }
+
+    @Override
+    public String toString() {
+        return uuid + " "
+                + r1.toString() + " "
+                + r2.toString() + " "
+                + r3.toString() + " "
+                + reflector.toString() + " "
+                + r1.getRotorPosition() + " "
+                + r2.getRotorPosition() + " "
+                + r3.getRotorPosition();
     }
 
 }

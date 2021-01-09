@@ -1,37 +1,35 @@
-package com.machine.enigma;
+package com.machine.enigma.encryption;
 
-import java.io.FileOutputStream;
+import com.machine.enigma.io.ReadFile;
+import com.machine.enigma.language.English;
+import com.machine.enigma.cipher.EnigmaMachine;
+import com.machine.enigma.cipher.Rotor;
+
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-class EnigmaMachineDecryptionUser {
+public class Decrypt {
 
     public static void main(String[] args) throws IOException {
-        final Rotor r1 = new Rotor("QWERTYUIOPLKJHGFDSAZXCVBNM");
-        final Rotor r2 = new Rotor("ZAQWSXCDERFVBGTYHNMJUIKLOP");
-        final Rotor r3 = new Rotor("PLOKMIJNUHBYGVTFCRDXESZWAQ");
-        final Reflector rf = new Reflector("NPKMSLZTWQCFDAVBJYEHXOIURG");
-        final EnigmaMachine enigmaMachine = new EnigmaMachine(r1, r2, r3, rf);
 
-        final String fileName = "src/main/resources/encrypted.txt";
+        final String fileName = "src/main/resources/encrypt-file.txt";
 
-        final EnigmaMachineDecryptionUser user = new EnigmaMachineDecryptionUser();
+        final Decrypt user = new Decrypt();
 
-        final List<Integer> rotorSettings =
-                user.findRotorSettings(enigmaMachine, fileName, 2);
+        //final List<Integer> rotorSettings = user.findRotorSettings(enigmaMachine, fileName, 10);
 
-        final String unencryptedFile = user.decryptFile(enigmaMachine, rotorSettings, fileName);
+        //final String unencryptedFile = user.decryptFile(enigmaMachine, rotorSettings, fileName);
 
-        System.setOut(new PrintStream(new FileOutputStream("src/main/resources/unencrypted.txt")));
-
-        //System.out.println("\nRotor settings: " + rotorSettings + "\n");
-        System.out.println(unencryptedFile);
+        //System.setOut(new PrintStream(new FileOutputStream("src/main/resources/test.txt")));
+        //System.out.println(unencryptedFile);
     }
 
     String decryptFile(EnigmaMachine enigmaMachine, List<Integer> rotorSettings, String fileName)
             throws IOException {
+        if (rotorSettings.isEmpty()) {
+            throw new RuntimeException("No rotor settings satisfy language constraints");
+        }
         enigmaMachine.setRotors(rotorSettings.get(0), rotorSettings.get(1), rotorSettings.get(2));
         final ReadFile file = new ReadFile(fileName);
         return enigmaMachine.encodeLine(file.read());

@@ -1,8 +1,10 @@
-package com.machine.enigma;
+package com.machine.enigma.language;
+
+import com.machine.enigma.cipher.Rotor;
 
 import java.util.Arrays;
 
-class English {
+public class English {
 
     private double totalNumberOfLetters;
     private final int[] alphabetLetterCount = new int[MAX];
@@ -15,7 +17,7 @@ class English {
     private static final int MAX = Rotor.MAX;
     private static final char A = Rotor.A;
 
-    void countAllLetters(String sequence) {
+    public void countAllLetters(String sequence) {
         totalNumberOfLetters = 0;
         Arrays.fill(alphabetLetterCount, 0);
 
@@ -28,7 +30,7 @@ class English {
         }
     }
 
-    int getErrorCount(double multiplier) {
+    public int getErrorCount(double multiplier) {
         int errorCount = 0;
 
         for (int i = 0; i < alphabetLetterCount.length; i++) {

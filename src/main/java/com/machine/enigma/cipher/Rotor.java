@@ -1,23 +1,25 @@
-package com.machine.enigma;
+package com.machine.enigma.cipher;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-class Rotor {
+public class Rotor {
 
-    static final int MAX = 26;
-    static final int A = 65;
+    public static final int MAX = 26;
+    public static final int A = 65;
     private int position;
     private final char[] leftToRightWiring = new char[MAX];
     private final char[] rightToLeftWiring = new char[MAX];
 
-    Rotor(String sequence) {
+    public Rotor(String sequence) {
         for (int i = 0; i < MAX; i++) {
             leftToRightWiring[i] = sequence.charAt(i);
             rightToLeftWiring[sequence.charAt(i) - A] = (char) (A + i);
         }
     }
 
-    boolean increment() {
+    public boolean increment() {
         position++;
         if (position == MAX) {
             position = 0;
@@ -26,11 +28,11 @@ class Rotor {
         return false;
     }
 
-    char encodeLeftToRight(char c) {
+    public char encodeLeftToRight(char c) {
         return leftToRightWiring[((c - A) + position) % MAX];
     }
 
-    char encodeRightToLeft(char c) {
+    public char encodeRightToLeft(char c) {
         char character = rightToLeftWiring[c - A];
         character -= position;
 
@@ -40,19 +42,28 @@ class Rotor {
         return character;
     }
 
-    void setRotorPosition(int n) {
+    public void setRotorPosition(int n) {
         this.position = n % MAX;
     }
 
-    int getRotorPosition() {
+    public int getRotorPosition() {
         return this.position;
     }
 
-    char[] getLeftToRightWiring() {
+    public char[] getLeftToRightWiring() {
         return Arrays.copyOf(leftToRightWiring, leftToRightWiring.length);
     }
 
-    char[] getRightToLeftWiring() {
+    public char[] getRightToLeftWiring() {
         return Arrays.copyOf(rightToLeftWiring, rightToLeftWiring.length);
     }
+
+    @Override
+    public String toString() {
+        return IntStream.range(0, leftToRightWiring.length)
+                .mapToObj(index -> leftToRightWiring[index])
+                .map(String::valueOf)
+                .collect(Collectors.joining());
+    }
+
 }

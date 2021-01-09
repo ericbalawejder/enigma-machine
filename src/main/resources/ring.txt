@@ -1,0 +1,30 @@
+In mathematics, rings are algebraic structures that generalize fields: multiplication
+need not be commutative and multiplicative inverses need not exist. In other words, a ring
+is a set equipped with two binary operations satisfying properties analogous to those of
+addition and multiplication of integers. Ring elements may be numbers such as integers or
+complex numbers, but they may also be non-numerical objects such as polynomials, square
+matrices, functions, and power series.
+
+Formally, a ring is an abelian group whose operation is called addition, with a second binary
+operation called multiplication that is associative, is distributive over the addition
+operation, and has an identity element. (Some authors use the term "ring" to refer to the
+more general structure that omits this last requirement; see § Notes on the definition.)
+
+Whether a ring is commutative (that is, whether the order in which two elements are multiplied
+might change the result) has profound implications on its behavior. Commutative algebra, the
+theory of commutative rings, is a major branch of ring theory. Its development has been greatly
+influenced by problems and ideas of algebraic number theory and algebraic geometry. The simplest
+commutative rings are those that admit division by non-zero elements; such rings are called fields.
+
+Examples of commutative rings include the set of integers with their standard addition and
+multiplication, the set of polynomials with their addition and multiplication, the coordinate
+ring of an affine algebraic variety, and the ring of integers of a number field. Examples of
+noncommutative rings include the ring of n × n real square matrices with n ≥ 2, group rings
+in representation theory, operator algebras in functional analysis, rings of differential
+operators, and cohomology rings in topology.
+
+The conceptualization of rings spanned the 1870s to the 1920s, with key contributions by
+Dedekind, Hilbert, Fraenkel, and Noether. Rings were first formalized as a generalization
+of Dedekind domains that occur in number theory, and of polynomial rings and rings of
+invariants that occur in algebraic geometry and invariant theory. They later proved useful
+in other branches of mathematics such as geometry and analysis.

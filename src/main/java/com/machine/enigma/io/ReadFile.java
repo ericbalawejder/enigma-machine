@@ -1,4 +1,4 @@
-package com.machine.enigma;
+package com.machine.enigma.io;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -6,15 +6,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-class ReadFile {
+public class ReadFile {
 
     private final String path;
 
-    ReadFile(String filePath) {
+    public ReadFile(String filePath) {
         this.path = filePath;
     }
 
-    String read(int numberOfLines) throws IOException {
+    public String read(int numberOfLines) throws IOException {
         final FileReader fileReader = new FileReader(path);
         final BufferedReader bufferReader = new BufferedReader(fileReader);
         final StringBuilder file = new StringBuilder();
@@ -31,7 +31,7 @@ class ReadFile {
         return file.toString();
     }
 
-    String read() throws IOException {
+    public String read() throws IOException {
         return new String(Files.readAllBytes(Paths.get(path)));
     }
 
