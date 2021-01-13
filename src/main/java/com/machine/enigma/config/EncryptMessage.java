@@ -27,6 +27,8 @@ public class CreateMessage {
         final Encrypt encrypt = new Encrypt();
         final String encryptedFile = encrypt.encryptFile(enigmaMachine, file);
 
+        System.out.println(MACHINE_SETTINGS);
+
         System.setOut(new PrintStream(new FileOutputStream("src/main/resources/encrypt-file.txt")));
         System.out.println(enigmaMachine.getUuid());
         System.out.println();
