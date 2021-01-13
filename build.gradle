@@ -3,7 +3,7 @@ plugins {
     id 'application'
 }
 
-mainClassName = "com.machine.enigma.EnigmaMachineDecryptionUser"
+mainClassName = "com.machine.enigma.config.DecryptMessage"
 
 group 'com.machine.enigma'
 version '0.0.1-SNAPSHOT'
