@@ -9,10 +9,12 @@ public class Rotor {
     public static final int MAX = 26;
     public static final int A = 65;
     private int position;
-    private final char[] leftToRightWiring = new char[MAX];
-    private final char[] rightToLeftWiring = new char[MAX];
+    private final char[] leftToRightWiring;
+    private final char[] rightToLeftWiring;
 
     public Rotor(String sequence) {
+        this.leftToRightWiring = new char[MAX];
+        this.rightToLeftWiring = new char[MAX];
         for (int i = 0; i < MAX; i++) {
             leftToRightWiring[i] = sequence.charAt(i);
             rightToLeftWiring[sequence.charAt(i) - A] = (char) (A + i);
@@ -20,11 +22,19 @@ public class Rotor {
     }
 
     public Rotor(String sequence, int position) {
+        this.leftToRightWiring = new char[MAX];
+        this.rightToLeftWiring = new char[MAX];
+        this.position = position;
         for (int i = 0; i < MAX; i++) {
             leftToRightWiring[i] = sequence.charAt(i);
             rightToLeftWiring[sequence.charAt(i) - A] = (char) (A + i);
         }
-        this.position = position;
+    }
+
+    public Rotor(Rotor rotor) {
+        this.position = rotor.getRotorPosition();
+        this.leftToRightWiring = rotor.getLeftToRightWiring();
+        this.rightToLeftWiring = rotor.getRightToLeftWiring();
     }
 
     public boolean increment() {

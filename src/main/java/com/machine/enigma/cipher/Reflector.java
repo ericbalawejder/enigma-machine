@@ -8,11 +8,16 @@ public class Reflector {
 
     private static final int MAX = Rotor.MAX;
     private static final int A = Rotor.A;
-    private final char[] leftToRightWiring = new char[MAX];
+    private final char[] leftToRightWiring;
 
     public Reflector(String sequence) {
+        this.leftToRightWiring = new char[MAX];
         IntStream.range(0, MAX)
                 .forEach(i -> leftToRightWiring[i] = sequence.charAt(i));
+    }
+
+    public Reflector(Reflector reflector) {
+        this.leftToRightWiring = reflector.getLeftToRightWiring();
     }
 
     public char reflect(char c) {

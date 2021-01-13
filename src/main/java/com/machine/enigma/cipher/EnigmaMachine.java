@@ -44,6 +44,14 @@ public class EnigmaMachine {
         this.uuid = UUID.fromString(uuid);
     }
 
+    public EnigmaMachine(EnigmaMachine enigmaMachine) {
+        this.r1 = new Rotor(enigmaMachine.getR1());
+        this.r2 = new Rotor(enigmaMachine.getR2());
+        this.r3 = new Rotor(enigmaMachine.getR3());
+        this.reflector = new Reflector(enigmaMachine.getReflector());
+        this.uuid = enigmaMachine.getUuid();
+    }
+
     public String encodeLine(String sequence) {
         StringBuilder stringBuilder = new StringBuilder();
 
