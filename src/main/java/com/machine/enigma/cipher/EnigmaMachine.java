@@ -19,19 +19,29 @@ public class EnigmaMachine {
     private final UUID uuid;
 
     public EnigmaMachine() {
-        this.r1 = new Rotor(randomLetters());
-        this.r2 = new Rotor(randomLetters());
-        this.r3 = new Rotor(randomLetters());
+        this.r1 = new Rotor(randomLetters(), randomNumbers());
+        this.r2 = new Rotor(randomLetters(), randomNumbers());
+        this.r3 = new Rotor(randomLetters(), randomNumbers());
         this.reflector = new Reflector(randomLetters());
         this.uuid = UUID.randomUUID();
     }
 
-    public EnigmaMachine(Rotor r1, Rotor r2, Rotor r3, Reflector rf) {
+    public EnigmaMachine(Rotor r1, Rotor r2, Rotor r3, Reflector reflector) {
         this.r1 = r1;
         this.r2 = r2;
         this.r3 = r3;
-        this.reflector = rf;
+        this.reflector = reflector;
         this.uuid = UUID.randomUUID();
+    }
+
+    public EnigmaMachine(String uuid, String r1, String r2, String r3, String reflector,
+                         int position1, int position2, int position3) {
+
+        this.r1 = new Rotor(r1, position1);
+        this.r2 = new Rotor(r2, position2);
+        this.r3 = new Rotor(r3, position3);
+        this.reflector = new Reflector(reflector);
+        this.uuid = UUID.fromString(uuid);
     }
 
     public String encodeLine(String sequence) {

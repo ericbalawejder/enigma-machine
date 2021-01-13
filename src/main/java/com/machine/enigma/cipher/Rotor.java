@@ -19,6 +19,14 @@ public class Rotor {
         }
     }
 
+    public Rotor(String sequence, int position) {
+        for (int i = 0; i < MAX; i++) {
+            leftToRightWiring[i] = sequence.charAt(i);
+            rightToLeftWiring[sequence.charAt(i) - A] = (char) (A + i);
+        }
+        this.position = position;
+    }
+
     public boolean increment() {
         position++;
         if (position == MAX) {
